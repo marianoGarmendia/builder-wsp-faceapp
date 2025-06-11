@@ -33,7 +33,7 @@ const processUserMessage = async (ctx, { flowDynamic, state, provider }) => {
   console.log("response desde app.ts: ", response);
 
   // Split the response into chunks and send them sequentially
-  const chunks = response.split(/\n\n+/);
+  const chunks = response.content.split(/\n\n+/);
   for (const chunk of chunks) {
     const cleanedChunk = chunk.trim().replace(/【.*?】[ ] /g, "");
     await flowDynamic([{ body: cleanedChunk }]);
