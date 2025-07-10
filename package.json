@@ -11,12 +11,12 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-   "@builderbot/bot": "^1.2.9",
-    "@builderbot/provider-baileys": "^1.2.9",
+   "@builderbot/bot": "1.2.9",
+    "@builderbot/provider-baileys": "1.2.9",
     "sharp": "0.33.5"
   },
   "devDependencies": {
-    "tsx": "^4.19.2"
+    "tsx": "4.19.2"
   },
   "overrides": {
     "sharp": "0.33.5"
