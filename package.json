@@ -16,7 +16,7 @@
     "sharp": "0.33.5"
   },
   "devDependencies": {
-    "tsx": "3.13.0"
+    "tsx": "4.19.2"
   },
   "overrides": {
     "sharp": "0.33.5"
