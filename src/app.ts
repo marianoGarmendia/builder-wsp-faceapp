@@ -14,6 +14,7 @@ import { CtxIncomingMessage } from "./types/body";
 
 const userQueues = new Map();
 const userLocks = new Map(); // New lock mechanism
+const userCaptaciones = new Map(); // Mapeo de 'number' del usuario y el 'id_captacion'
 
 // const startFlow = addKeyword<Provider, MemoryDB>(EVENTS.WELCOME).addAnswer(
 //   `Hola Dime en que puedo ayudarte`,
@@ -56,7 +57,16 @@ const handleQueue = async (userId: string) => {
     const { ctx, flowDynamic, state, provider } = queue.shift() as { ctx: CtxIncomingMessage, flowDynamic: any, state: any, provider: any };
     try {
       // await processUserMessage(ctx, { flowDynamic, state, provider });
+
+      // TODO:
+      // Procesar el mensaje del usuario y enviar la confirmacion o rechazo a winwin
+       // Aca deberia poder extraer el enpoint donde confimrar o rechazar en winwin la solicitud , lo que haya respondido el usuario.
+
       console.log("ctx", ctx);
+      const {body, from} = ctx as CtxIncomingMessage;
+
+      // Hacer el mapeo con el 'from' del usuario y el 'id_captacion'
+      // const id_captacion = userCaptaciones.get(from);
      
     } catch (error) {
       console.error(`Error processing message for user ${userId}:`, error);
@@ -110,6 +120,9 @@ const main = async () => {
     handleCtx(async (bot, req, res) => {
       console.log("req.body", req.body);
 
+     // TODO:
+// Aca almacenar el 'id_captacion' con el 'number' del usuario. para compararlo cuando haga el envío de la repsuesta del usuario
+
       const { number, message, urlMedia } = req.body;
       await bot?.sendMessage(number, message, { media: urlMedia ?? null });
       return res.end("sended");
@@ -118,5 +131,58 @@ const main = async () => {
 
   httpServer(5000);
 };
+
+/*
+La respuesta del usuario en 'ctx' llega asi:
+
+{
+  key: {
+    remoteJid: '56971524620@s.whatsapp.net',
+    fromMe: false,
+    id: '3EB0EA4412408F58F635FE',
+    participant: undefined
+  },
+  messageTimestamp: 1757088047,
+  pushName: 'Simo',
+  broadcast: false,
+  message: Message {
+    extendedTextMessage: ExtendedTextMessage {
+      text: '1',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
+    },
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2,
+      messageSecret: [Uint8Array],
+      limitSharingV2: [LimitSharing]
+    }
+  },
+  body: '1',
+  name: 'Simo',
+  from: '56971524620',
+  host: '5492214371684'
+}
+
+
+- Paso 2 
+
+Envair esta confimración al sistema winwin al enpoint que llega en la solicitud:
+
+{
+data: {
+    response: {
+        confirm_service: boolean
+},
+    "id_captacion": "1234567890",
+    "phone": string,
+    "timestamp": nunber
+  }
+}
+
+
+
+
+*/
 
 main();

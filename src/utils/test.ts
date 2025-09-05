@@ -114,10 +114,10 @@ const testEndpoint = async ({url, token, payload}: {url: string, token: string, 
 
 const payload = {
   data: {
-    name: "Juan Perez",
-    number: "5492214371684",
+    name: "Simon Lopez",
+    number: "56971524620",
     message:
-    "Se ha realizado una solicitud de servicio a nombre Juan Perez, por favor confirma que fuiste tú.",
+    "Se ha realizado una solicitud de servicio a nombre Simon Lopez, por favor confirma que fuiste tú.",
     service: "suscripción",
     strategy: {
       maxAttempts: 3,
@@ -126,8 +126,22 @@ const payload = {
       attemptMaxDelay: 10000,
       attemptMinDelay: 1000
     },
-    endpoint: "http://localhost:5000/v1/messages", // endpoint de la api de faceapp
-    id_contacto: "707070"
+    endpoint: "http://localhost:5000/v1/messages", // endpoint de la api de faceapp/winwin
+    id_captacion: "707070"
   }
 };
+
+
 // testEndpoint({url:"http://localhost:3000/process", token: "1234567890" , payload:payload});
+
+// RESPUESTA:
+
+
+// Respuesta: {
+//   forwarded: true,
+//   external: { status: 200, statusText: 'OK', data: 'sended', id_captacion: '707070' }
+// }
+
+
+
+

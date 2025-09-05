@@ -1,295 +1,50 @@
 [handleMsg]:  {
-  key: {
-    remoteJid: '5492216027037@s.whatsapp.net',
-    fromMe: false,
-    id: 'E219CE1EE19B81BD355996454F4D4F49',
-    participant: undefined
+  from: '5219842031831',
+  body: '_event_call__a2ad3d55-6644-4243-9793-833dfce94f26',
+  call: {
+    chatId: '5219842031831@s.whatsapp.net',
+    from: '5219842031831@s.whatsapp.net',
+    id: 'E2CDCF081C65A969FFEB2D94C60E3DCC',
+    date: 2025-09-05T15:00:41.000Z,
+    offline: true,
+    status: 'offer',
+    isVideo: true,
+    isGroup: false,
+    groupJid: undefined
   },
-  messageTimestamp: 1757028656,
-  pushName: 'Ale',
-  broadcast: false,
-  message: Message {
-    conversation: 'Recien salgo del consul',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'Recien salgo del consul',
-  name: 'Ale',
-  from: '5492216027037',
   host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5cb5f955-f96a-47f1-bf79-445df3cb3444',
-  keyword: 'key_cca6be56-3e06-4c8b-b995-ec8e3649df4f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'da6a752c06ab9606046604cf80fa72b6'
 }
 [handleMsg]:  {
   key: {
-    remoteJid: '5492216027037@s.whatsapp.net',
+    remoteJid: '56971524620@s.whatsapp.net',
     fromMe: false,
-    id: '4114BD156FC318C065654956BB449AE7',
+    id: '3EB0EA4412408F58F635FE',
     participant: undefined
   },
-  messageTimestamp: 1757028668,
-  pushName: 'Ale',
+  messageTimestamp: 1757088047,
+  pushName: 'Simo',
   broadcast: false,
   message: Message {
-    conversation: 'Pedimos, sali cnsda',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'Pedimos, sali cnsda',
-  name: 'Ale',
-  from: '5492216027037',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5cb5f955-f96a-47f1-bf79-445df3cb3444',
-  keyword: 'key_cca6be56-3e06-4c8b-b995-ec8e3649df4f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'da6a752c06ab9606046604cf80fa72b6'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5492216027037@s.whatsapp.net',
-    fromMe: false,
-    id: 'DE05657D7E4DF8B025C737E30B023582',
-    participant: undefined
-  },
-  messageTimestamp: 1757028687,
-  pushName: 'Ale',
-  broadcast: false,
-  message: Message {
-    conversation: 'Y no quiero que el descongelamiento salga mal',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'Y no quiero que el descongelamiento salga mal',
-  name: 'Ale',
-  from: '5492216027037',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5cb5f955-f96a-47f1-bf79-445df3cb3444',
-  keyword: 'key_cca6be56-3e06-4c8b-b995-ec8e3649df4f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'da6a752c06ab9606046604cf80fa72b6'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5492216027037@s.whatsapp.net',
-    fromMe: false,
-    id: '67479D2D357815A6439E05A9DB6702C1',
-    participant: undefined
-  },
-  messageTimestamp: 1757029258,
-  pushName: 'Ale',
-  broadcast: false,
-  message: Message {
-    conversation: 'Si, el nivel de cansancio usual',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'Si, el nivel de cansancio usual',
-  name: 'Ale',
-  from: '5492216027037',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5cb5f955-f96a-47f1-bf79-445df3cb3444',
-  keyword: 'key_cca6be56-3e06-4c8b-b995-ec8e3649df4f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'da6a752c06ab9606046604cf80fa72b6'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5492216027037@s.whatsapp.net',
-    fromMe: false,
-    id: '679DDFF3085EE98C411ABF911F1DAEB4',
-    participant: undefined
-  },
-  messageTimestamp: 1757029879,
-  pushName: 'Ale',
-  broadcast: false,
-  message: Message {
-    conversation: 'Mira que tengo un vino acá eh',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'Mira que tengo un vino acá eh',
-  name: 'Ale',
-  from: '5492216027037',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5cb5f955-f96a-47f1-bf79-445df3cb3444',
-  keyword: 'key_cca6be56-3e06-4c8b-b995-ec8e3649df4f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'da6a752c06ab9606046604cf80fa72b6'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5492215933968@s.whatsapp.net',
-    fromMe: false,
-    id: '9F8DE7867D55C7013AB5279616AE2A3D',
-    participant: undefined
-  },
-  messageTimestamp: 1757030280,
-  pushName: 'An',
-  broadcast: false,
-  message: Message {
-    conversation: 'Si, no hay problema. Beso.',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'Si, no hay problema. Beso.',
-  name: 'An',
-  from: '5492215933968',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5cb5f955-f96a-47f1-bf79-445df3cb3444',
-  keyword: 'key_cca6be56-3e06-4c8b-b995-ec8e3649df4f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'da6a752c06ab9606046604cf80fa72b6'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5492216027037@s.whatsapp.net',
-    fromMe: false,
-    id: '4DEAFDC56E4257A33871192C4A31678A',
-    participant: undefined
-  },
-  messageTimestamp: 1757030703,
-  pushName: 'Ale',
-  broadcast: false,
-  message: Message {
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2
+    extendedTextMessage: ExtendedTextMessage {
+      text: '1',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
     },
-    reactionMessage: ReactionMessage {
-      key: [MessageKey],
-      text: '👍🏼',
-      senderTimestampMs: [Long]
-    }
-  },
-  body: null,
-  name: 'Ale',
-  from: '5492216027037',
-  host: '5492214371684'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5492216027037@s.whatsapp.net',
-    fromMe: false,
-    id: 'DB1EDB25C77883817BA2CDDBB451E42E',
-    participant: undefined
-  },
-  messageTimestamp: 1757030736,
-  pushName: 'Ale',
-  broadcast: false,
-  message: Message {
-    conversation: '7 e/70 y 71 n°1870 3B',
     messageContextInfo: MessageContextInfo {
       deviceListMetadata: [DeviceListMetadata],
       deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
+      messageSecret: [Uint8Array],
+      limitSharingV2: [LimitSharing]
     }
   },
-  body: '7 e/70 y 71 n°1870 3B',
-  name: 'Ale',
-  from: '5492216027037',
+  body: '1',
+  name: 'Simo',
+  from: '56971524620',
   host: '5492214371684'
 }
 [QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5cb5f955-f96a-47f1-bf79-445df3cb3444',
-  keyword: 'key_cca6be56-3e06-4c8b-b995-ec8e3649df4f',
+  ref: 'ans_7539abd4-d0ca-4db9-acbb-7ff18d285aa9',
+  keyword: 'key_fdc6cf2c-e48f-4f80-8a8a-049721595ce9',
   answer: '__call_action__',
   options: {
     media: undefined,
@@ -302,34 +57,38 @@
     keyword: {},
     callback: true
   },
-  refSerialize: 'da6a752c06ab9606046604cf80fa72b6'
+  refSerialize: '75889c398e2ed17753ae68cf547f3953'
 }
 [handleMsg]:  {
   key: {
-    remoteJid: '5492216125933@s.whatsapp.net',
+    remoteJid: '5492214543059@s.whatsapp.net',
     fromMe: false,
-    id: '3A0B27605B95B8235E5D',
+    id: '3AF1D230FA59EEE90F62',
     participant: undefined
   },
-  messageTimestamp: 1757030839,
-  pushName: 'Pato!!!',
+  messageTimestamp: 1757088574,
+  pushName: 'Bere Bonnot',
   broadcast: false,
   message: Message {
-    conversation: 'Por eso te dije el sábado infleiz',
+    conversation: 'Holiss como va? Marian te molesto por l siguiente, me hablo brai por el tema de la grilla , de cómo anota el extra por las planis, le dije que lo maneje como venia haciendo de última qye al lado de la clase ponga “+plani” y sume la hs en la hs que dio esa clase. \n' +
+      'Pero ahora seguro les haga una columna para que anoten eso y se sume directo. No se como se manejan los demás coach que planifican. \n' +
+      'Le mandé a Lu me dijo que es un monto que tiene arreglado con pato. Pero nahiara, Mariel, agustina no se cómo lo manejan. Más que nada psra de ultima mandarles y que ellas aclaren cuando completen',
     messageContextInfo: MessageContextInfo {
       deviceListMetadata: [DeviceListMetadata],
       deviceListMetadataVersion: 2,
       messageSecret: [Uint8Array]
     }
   },
-  body: 'Por eso te dije el sábado infleiz',
-  name: 'Pato!!!',
-  from: '5492216125933',
+  body: 'Holiss como va? Marian te molesto por l siguiente, me hablo brai por el tema de la grilla , de cómo anota el extra por las planis, le dije que lo maneje como venia haciendo de última qye al lado de la clase ponga “+plani” y sume la hs en la hs que dio esa clase. \n' +
+    'Pero ahora seguro les haga una columna para que anoten eso y se sume directo. No se como se manejan los demás coach que planifican. \n' +
+    'Le mandé a Lu me dijo que es un monto que tiene arreglado con pato. Pero nahiara, Mariel, agustina no se cómo lo manejan. Más que nada psra de ultima mandarles y que ellas aclaren cuando completen',
+  name: 'Bere Bonnot',
+  from: '5492214543059',
   host: '5492214371684'
 }
 [QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5cb5f955-f96a-47f1-bf79-445df3cb3444',
-  keyword: 'key_cca6be56-3e06-4c8b-b995-ec8e3649df4f',
+  ref: 'ans_7539abd4-d0ca-4db9-acbb-7ff18d285aa9',
+  keyword: 'key_fdc6cf2c-e48f-4f80-8a8a-049721595ce9',
   answer: '__call_action__',
   options: {
     media: undefined,
@@ -342,125 +101,5 @@
     keyword: {},
     callback: true
   },
-  refSerialize: 'da6a752c06ab9606046604cf80fa72b6'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5492216125933@s.whatsapp.net',
-    fromMe: false,
-    id: '3A6F542EC62618ADBD54',
-    participant: undefined
-  },
-  messageTimestamp: 1757030845,
-  pushName: 'Pato!!!',
-  broadcast: false,
-  message: Message {
-    conversation: 'Podes a la mañana',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'Podes a la mañana',
-  name: 'Pato!!!',
-  from: '5492216125933',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5cb5f955-f96a-47f1-bf79-445df3cb3444',
-  keyword: 'key_cca6be56-3e06-4c8b-b995-ec8e3649df4f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'da6a752c06ab9606046604cf80fa72b6'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5492216125933@s.whatsapp.net',
-    fromMe: false,
-    id: '3AF99DAB1D460A84DF67',
-    participant: undefined
-  },
-  messageTimestamp: 1757030854,
-  pushName: 'Pato!!!',
-  broadcast: false,
-  message: Message {
-    conversation: 'Así ya cerramos el mes',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'Así ya cerramos el mes',
-  name: 'Pato!!!',
-  from: '5492216125933',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5cb5f955-f96a-47f1-bf79-445df3cb3444',
-  keyword: 'key_cca6be56-3e06-4c8b-b995-ec8e3649df4f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'da6a752c06ab9606046604cf80fa72b6'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '5492216027037@s.whatsapp.net',
-    fromMe: false,
-    id: '39F641E9C062DBCAA18ABCB928C74DCC',
-    participant: undefined
-  },
-  messageTimestamp: 1757031372,
-  pushName: 'Ale',
-  broadcast: false,
-  message: Message {
-    conversation: 'Messi hizo un gol',
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array]
-    }
-  },
-  body: 'Messi hizo un gol',
-  name: 'Ale',
-  from: '5492216027037',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5cb5f955-f96a-47f1-bf79-445df3cb3444',
-  keyword: 'key_cca6be56-3e06-4c8b-b995-ec8e3649df4f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'da6a752c06ab9606046604cf80fa72b6'
+  refSerialize: '75889c398e2ed17753ae68cf547f3953'
 }
