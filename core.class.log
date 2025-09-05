@@ -1,34 +1,35 @@
 [handleMsg]:  {
   key: {
-    remoteJid: '56971524620@s.whatsapp.net',
+    remoteJid: '5492213639894@s.whatsapp.net',
     fromMe: false,
-    id: '3EB04FB035D9D3B1B101E9',
+    id: '6ED2AAE21888E4B216274F5E81F84702',
     participant: undefined
   },
-  messageTimestamp: 1757099759,
-  pushName: 'Simo',
+  messageTimestamp: 1757108778,
+  pushName: 'Ailín',
   broadcast: false,
   message: Message {
     extendedTextMessage: ExtendedTextMessage {
-      text: 'ya estoty',
+      text: 'Yo tmb ! Nunca una cabutia. A nosotras',
+      previewType: 0,
       contextInfo: [ContextInfo],
-      inviteLinkGroupTypeV2: 0
+      inviteLinkGroupTypeV2: 0,
+      linkPreviewMetadata: LinkPreviewMetadata {}
     },
     messageContextInfo: MessageContextInfo {
       deviceListMetadata: [DeviceListMetadata],
       deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array],
-      limitSharingV2: [LimitSharing]
+      messageSecret: [Uint8Array]
     }
   },
-  body: 'ya estoty',
-  name: 'Simo',
-  from: '56971524620',
+  body: 'Yo tmb ! Nunca una cabutia. A nosotras',
+  name: 'Ailín',
+  from: '5492213639894',
   host: '5492214371684'
 }
 [QUEUE_SE_ENVIO]:  {
-  ref: 'ans_bc78c420-c137-4f60-8f46-9bd585974e2e',
-  keyword: 'key_c1bdd65c-fb8a-4527-84ff-99e4fc2cdfc4',
+  ref: 'ans_6d2cf3b8-e08d-4f45-9bba-80535204f1b1',
+  keyword: 'key_d4ea2647-31a6-438b-8aa7-9836f0be2caa',
   answer: '__call_action__',
   options: {
     media: undefined,
@@ -41,39 +42,40 @@
     keyword: {},
     callback: true
   },
-  refSerialize: '657bc700cb20b818f292bc5a36628895'
+  refSerialize: '2cccb61475adce351f374f615de5c591'
 }
 [handleMsg]:  {
   key: {
-    remoteJid: '56971524620@s.whatsapp.net',
+    remoteJid: '5492213639894@s.whatsapp.net',
     fromMe: false,
-    id: '3EB02D923451BAE5ADC924',
+    id: '05A26A803E3F47104B88E279EB5E6896',
     participant: undefined
   },
-  messageTimestamp: 1757100612,
-  pushName: 'Simo',
+  messageTimestamp: 1757108791,
+  pushName: 'Ailín',
   broadcast: false,
   message: Message {
     extendedTextMessage: ExtendedTextMessage {
-      text: '1',
+      text: 'Ahhh buenooooo! Ya estoy celosa',
+      previewType: 0,
       contextInfo: [ContextInfo],
-      inviteLinkGroupTypeV2: 0
+      inviteLinkGroupTypeV2: 0,
+      linkPreviewMetadata: LinkPreviewMetadata {}
     },
     messageContextInfo: MessageContextInfo {
       deviceListMetadata: [DeviceListMetadata],
       deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array],
-      limitSharingV2: [LimitSharing]
+      messageSecret: [Uint8Array]
     }
   },
-  body: '1',
-  name: 'Simo',
-  from: '56971524620',
+  body: 'Ahhh buenooooo! Ya estoy celosa',
+  name: 'Ailín',
+  from: '5492213639894',
   host: '5492214371684'
 }
 [QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5dbfbf62-5dc4-4093-8d92-801ebb957029',
-  keyword: 'key_80dee797-48f8-4d05-8e6e-418de34c060f',
+  ref: 'ans_6d2cf3b8-e08d-4f45-9bba-80535204f1b1',
+  keyword: 'key_d4ea2647-31a6-438b-8aa7-9836f0be2caa',
   answer: '__call_action__',
   options: {
     media: undefined,
@@ -86,410 +88,44 @@
     keyword: {},
     callback: true
   },
-  refSerialize: 'a0d322094e0b05ddab5cdac8596e74d1'
+  refSerialize: '2cccb61475adce351f374f615de5c591'
 }
 [handleMsg]:  {
   key: {
-    remoteJid: '56971524620@s.whatsapp.net',
+    remoteJid: '5492213639894@s.whatsapp.net',
     fromMe: false,
-    id: '3EB06E1CD9623A4B7A196A',
+    id: 'F4FD5BDA6A6934707645014BA4ACD80B',
     participant: undefined
   },
-  messageTimestamp: 1757100636,
-  pushName: 'Simo',
+  messageTimestamp: 1757108797,
+  pushName: 'Ailín',
   broadcast: false,
   message: Message {
-    extendedTextMessage: ExtendedTextMessage {
-      text: '2',
-      contextInfo: [ContextInfo],
-      inviteLinkGroupTypeV2: 0
+    stickerMessage: StickerMessage {
+      url: 'https://mmg.whatsapp.net/v/t62.15575-24/543989929_1084239083474540_7016642637981241520_n.enc?ccb=11-4&oh=01_Q5Aa2QFPxglHWsUJJojTPCz8gmYnEsZy6wsDIge7kiAy_sKf_g&oe=68E2B632&_nc_sid=5e03e0&mms3=true',
+      fileSha256: [Uint8Array],
+      fileEncSha256: [Uint8Array],
+      mediaKey: [Uint8Array],
+      mimetype: 'image/webp',
+      directPath: '/v/t62.15575-24/543989929_1084239083474540_7016642637981241520_n.enc?ccb=11-4&oh=01_Q5Aa2QFPxglHWsUJJojTPCz8gmYnEsZy6wsDIge7kiAy_sKf_g&oe=68E2B632&_nc_sid=5e03e0',
+      fileLength: [Long],
+      mediaKeyTimestamp: [Long],
+      firstFrameLength: 354394,
+      firstFrameSidecar: [Uint8Array],
+      isAnimated: true,
+      stickerSentTs: [Long],
+      isAvatar: false,
+      isAiSticker: false,
+      isLottie: false
     },
     messageContextInfo: MessageContextInfo {
       deviceListMetadata: [DeviceListMetadata],
       deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array],
-      limitSharingV2: [LimitSharing]
+      messageSecret: [Uint8Array]
     }
   },
-  body: '2',
-  name: 'Simo',
-  from: '56971524620',
+  body: '_event_media__eeced0ee-c6c2-4a8a-814f-1eadd3c43ca2',
+  name: 'Ailín',
+  from: '5492213639894',
   host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5dbfbf62-5dc4-4093-8d92-801ebb957029',
-  keyword: 'key_80dee797-48f8-4d05-8e6e-418de34c060f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'a0d322094e0b05ddab5cdac8596e74d1'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56971524620@s.whatsapp.net',
-    fromMe: false,
-    id: '3EB0E66849EBD9ED180169',
-    participant: undefined
-  },
-  messageTimestamp: 1757100665,
-  pushName: 'Simo',
-  broadcast: false,
-  message: Message {
-    extendedTextMessage: ExtendedTextMessage {
-      text: 'acepto',
-      contextInfo: [ContextInfo],
-      inviteLinkGroupTypeV2: 0
-    },
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array],
-      limitSharingV2: [LimitSharing]
-    }
-  },
-  body: 'acepto',
-  name: 'Simo',
-  from: '56971524620',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5dbfbf62-5dc4-4093-8d92-801ebb957029',
-  keyword: 'key_80dee797-48f8-4d05-8e6e-418de34c060f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'a0d322094e0b05ddab5cdac8596e74d1'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56971524620@s.whatsapp.net',
-    fromMe: false,
-    id: '3EB006F2762A51824DD360',
-    participant: undefined
-  },
-  messageTimestamp: 1757100677,
-  pushName: 'Simo',
-  broadcast: false,
-  message: Message {
-    extendedTextMessage: ExtendedTextMessage {
-      text: 'rechazo',
-      contextInfo: [ContextInfo],
-      inviteLinkGroupTypeV2: 0
-    },
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array],
-      limitSharingV2: [LimitSharing]
-    }
-  },
-  body: 'rechazo',
-  name: 'Simo',
-  from: '56971524620',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5dbfbf62-5dc4-4093-8d92-801ebb957029',
-  keyword: 'key_80dee797-48f8-4d05-8e6e-418de34c060f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'a0d322094e0b05ddab5cdac8596e74d1'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56971524620@s.whatsapp.net',
-    fromMe: false,
-    id: '3EB0C7A7CBAC2623E158C5',
-    participant: undefined
-  },
-  messageTimestamp: 1757100679,
-  pushName: 'Simo',
-  broadcast: false,
-  message: Message {
-    extendedTextMessage: ExtendedTextMessage {
-      text: 'Acepto',
-      contextInfo: [ContextInfo],
-      inviteLinkGroupTypeV2: 0
-    },
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array],
-      limitSharingV2: [LimitSharing]
-    }
-  },
-  body: 'Acepto',
-  name: 'Simo',
-  from: '56971524620',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5dbfbf62-5dc4-4093-8d92-801ebb957029',
-  keyword: 'key_80dee797-48f8-4d05-8e6e-418de34c060f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'a0d322094e0b05ddab5cdac8596e74d1'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56971524620@s.whatsapp.net',
-    fromMe: false,
-    id: '3EB05CD19177C2E7FC3215',
-    participant: undefined
-  },
-  messageTimestamp: 1757100681,
-  pushName: 'Simo',
-  broadcast: false,
-  message: Message {
-    extendedTextMessage: ExtendedTextMessage {
-      text: 'Rechazo',
-      contextInfo: [ContextInfo],
-      inviteLinkGroupTypeV2: 0
-    },
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array],
-      limitSharingV2: [LimitSharing]
-    }
-  },
-  body: 'Rechazo',
-  name: 'Simo',
-  from: '56971524620',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5dbfbf62-5dc4-4093-8d92-801ebb957029',
-  keyword: 'key_80dee797-48f8-4d05-8e6e-418de34c060f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'a0d322094e0b05ddab5cdac8596e74d1'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56971524620@s.whatsapp.net',
-    fromMe: false,
-    id: '3EB0697B8437EB45754558',
-    participant: undefined
-  },
-  messageTimestamp: 1757100682,
-  pushName: 'Simo',
-  broadcast: false,
-  message: Message {
-    extendedTextMessage: ExtendedTextMessage {
-      text: 'si',
-      contextInfo: [ContextInfo],
-      inviteLinkGroupTypeV2: 0
-    },
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array],
-      limitSharingV2: [LimitSharing]
-    }
-  },
-  body: 'si',
-  name: 'Simo',
-  from: '56971524620',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5dbfbf62-5dc4-4093-8d92-801ebb957029',
-  keyword: 'key_80dee797-48f8-4d05-8e6e-418de34c060f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'a0d322094e0b05ddab5cdac8596e74d1'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56971524620@s.whatsapp.net',
-    fromMe: false,
-    id: '3EB0AD870408A49874D7F9',
-    participant: undefined
-  },
-  messageTimestamp: 1757100683,
-  pushName: 'Simo',
-  broadcast: false,
-  message: Message {
-    extendedTextMessage: ExtendedTextMessage {
-      text: 'no',
-      contextInfo: [ContextInfo],
-      inviteLinkGroupTypeV2: 0
-    },
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array],
-      limitSharingV2: [LimitSharing]
-    }
-  },
-  body: 'no',
-  name: 'Simo',
-  from: '56971524620',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5dbfbf62-5dc4-4093-8d92-801ebb957029',
-  keyword: 'key_80dee797-48f8-4d05-8e6e-418de34c060f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'a0d322094e0b05ddab5cdac8596e74d1'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56971524620@s.whatsapp.net',
-    fromMe: false,
-    id: '3EB0FE2E925B3C6CD77D1C',
-    participant: undefined
-  },
-  messageTimestamp: 1757100684,
-  pushName: 'Simo',
-  broadcast: false,
-  message: Message {
-    extendedTextMessage: ExtendedTextMessage {
-      text: 'Si',
-      contextInfo: [ContextInfo],
-      inviteLinkGroupTypeV2: 0
-    },
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array],
-      limitSharingV2: [LimitSharing]
-    }
-  },
-  body: 'Si',
-  name: 'Simo',
-  from: '56971524620',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5dbfbf62-5dc4-4093-8d92-801ebb957029',
-  keyword: 'key_80dee797-48f8-4d05-8e6e-418de34c060f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'a0d322094e0b05ddab5cdac8596e74d1'
-}
-[handleMsg]:  {
-  key: {
-    remoteJid: '56971524620@s.whatsapp.net',
-    fromMe: false,
-    id: '3EB0F5DCC459E278C968E3',
-    participant: undefined
-  },
-  messageTimestamp: 1757100685,
-  pushName: 'Simo',
-  broadcast: false,
-  message: Message {
-    extendedTextMessage: ExtendedTextMessage {
-      text: 'No',
-      contextInfo: [ContextInfo],
-      inviteLinkGroupTypeV2: 0
-    },
-    messageContextInfo: MessageContextInfo {
-      deviceListMetadata: [DeviceListMetadata],
-      deviceListMetadataVersion: 2,
-      messageSecret: [Uint8Array],
-      limitSharingV2: [LimitSharing]
-    }
-  },
-  body: 'No',
-  name: 'Simo',
-  from: '56971524620',
-  host: '5492214371684'
-}
-[QUEUE_SE_ENVIO]:  {
-  ref: 'ans_5dbfbf62-5dc4-4093-8d92-801ebb957029',
-  keyword: 'key_80dee797-48f8-4d05-8e6e-418de34c060f',
-  answer: '__call_action__',
-  options: {
-    media: undefined,
-    buttons: [],
-    capture: false,
-    delay: 0,
-    idle: undefined,
-    ref: undefined,
-    nested: [],
-    keyword: {},
-    callback: true
-  },
-  refSerialize: 'a0d322094e0b05ddab5cdac8596e74d1'
 }

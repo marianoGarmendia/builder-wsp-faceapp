@@ -232,7 +232,7 @@ const main = async () => {
   const provider = createProvider(Provider);
 
   const { handleCtx, httpServer } = await createBot({
-    flow: createFlow([welcomeFlow, confirmFlow]),
+    flow: createFlow([welcomeFlow]),
     database: new MemoryDB(),
     provider: provider,
   });
@@ -245,12 +245,13 @@ const main = async () => {
       // TODO:
       // Aca almacenar el 'id_captacion' con el 'number' del usuario. para compararlo cuando haga el envío de la repsuesta del usuario
 
-      const { number, message, urlMedia, payload } = req.body as {
+      const { number, message , payload} = req.body as {
         number: string;
         message: string;
         urlMedia?: string | null;
         payload: Payload;
       };
+
 
       const id_captacion: string | undefined =
         payload?.data?.id_captacion || "";
@@ -267,9 +268,16 @@ const main = async () => {
 
       // Aca almacenar el 'id_captacion' con el 'number' del usuario. para compararlo cuando haga el envío de la repsuesta del usuario
       // userCaptaciones.set(number, payload.data?.id_captacion);
+      // console.log("sending message", number, message);
 
-      await bot?.sendMessage(number, message, { media: urlMedia ?? null });
-      return res.end("sended");
+      try {
+        await bot?.sendMessage(number, message, {});
+        return res.end("sended");
+      } catch (error) {
+        console.error("Error sending message", error);
+        console.log("error", error);
+        return res.status(500).json({ error: "Error sending message" });
+      }
     })
   );
 
