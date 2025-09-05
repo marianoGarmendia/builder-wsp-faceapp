@@ -1,4 +1,7 @@
 node_modules/
 dist/
 bot_sessions/*.json
-*.bot.qr.png
+bot.qr.png
+core.class.log
+queue.class.log
+.env

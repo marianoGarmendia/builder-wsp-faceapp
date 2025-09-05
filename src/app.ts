@@ -13,6 +13,10 @@ import { typing } from "./utils/presence";
 import { CaptacionRecord, CtxIncomingMessage, Payload } from "./types/body";
 import { setCaptacion, getCaptacion } from "./utils/kv-memory-ttl";
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
+
+const token = process.env.TOKEN;
 
 const userQueues = new Map();
 const userLocks = new Map(); // New lock mechanism
@@ -70,12 +74,23 @@ const processUserMessageConfirm = async (
     },
   };
 
-  const response = await axios.post(endpointConfirm, payload);
+  const response = await axios.post(endpointConfirm, payload , {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+  });
 
   console.log("response", response);
 
   // Split the response into chunks and send them sequentially
   // const chunks = response.split(/\n\n+/);
+
+  if (response.status === 200) {
+    await flowDynamic([{ body: "Tu respuesta ha sido registrada" }]);
+  } else {
+    await flowDynamic([{ body: "Error al registrar tu respuesta" }]);
+  }
  
     await flowDynamic([{ body: "Tu respuesta ha sido registrada" }]);
 
@@ -111,7 +126,7 @@ const handleQueue = async (userId: string) => {
       // Procesar el mensaje del usuario y enviar la confirmacion o rechazo a winwin
       // Aca deberia poder extraer el enpoint donde confimrar o rechazar en winwin la solicitud , lo que haya respondido el usuario.
 
-      console.log("ctx", ctx);
+      
       const { body, from } = ctx as CtxIncomingMessage;
 
       // 1) buscar la captación por teléfono
@@ -121,7 +136,7 @@ const handleQueue = async (userId: string) => {
         console.log("No se encontró la captación");
         return;
       }
-      const isAccept = new Set(["1", "acepto", "si"]).has(normalize(ctx.body));
+      const isAccept = new Set(["1", "acepto", "si"]).has(normalizeConfirm(body));
       // 2) enviar la respuesta al endpoint de winwin
       await processUserMessageConfirm(ctx, rec, isAccept, {
         flowDynamic,
