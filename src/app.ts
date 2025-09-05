@@ -193,14 +193,14 @@ const welcomeFlow = addKeyword<Provider, MemoryDB>(EVENTS.WELCOME).addAction(
 
     const valid = /^(1|2|acepto|rechazo|si|no)$/i;
     const msg = normalize(ctx.body);
-
-    if (!valid.test(msg)) {
-      return flowDynamic([
-        {
-          body: "Por favor, responda con '1' o '2' para aceptar o rechazar la solicitud.",
-        },
-      ]);
-    }
+// Descomentar para produccion
+    // if (!valid.test(msg)) {
+    //   return flowDynamic([
+    //     {
+    //       body: "Por favor, responda con '1' o '2' para aceptar o rechazar la solicitud.",
+    //     },
+    //   ]);
+    // }
   }
 );
 
