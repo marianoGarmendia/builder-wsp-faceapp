@@ -232,7 +232,7 @@ const main = async () => {
   const provider = createProvider(Provider);
 
   const { handleCtx, httpServer } = await createBot({
-    flow: createFlow([welcomeFlow]),
+    flow: createFlow([welcomeFlow , confirmFlow]),
     database: new MemoryDB(),
     provider: provider,
   });
