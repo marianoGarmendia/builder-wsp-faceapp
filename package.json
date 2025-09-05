@@ -13,10 +13,11 @@
   "dependencies": {
     "@builderbot/bot": "1.2.9",
     "@builderbot/provider-baileys": "1.2.9",
+    "axios": "^1.11.0",
     "sharp": "0.33.5"
   },
   "devDependencies": {
-    "tsx": "4.19.2"
+    "tsx": "4.20.5"
   },
   "overrides": {
     "sharp": "0.33.5"

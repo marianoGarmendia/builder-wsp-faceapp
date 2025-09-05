@@ -10,6 +10,7 @@ import {
 import { BaileysProvider as Provider } from "@builderbot/provider-baileys";
 import { chatAgent } from "./agent";
 import { typing } from "./utils/presence";
+import { CtxIncomingMessage } from "./types/body";
 
 const userQueues = new Map();
 const userLocks = new Map(); // New lock mechanism
@@ -27,7 +28,7 @@ const userLocks = new Map(); // New lock mechanism
  * Function to process the user's message by sending it to the OpenAI API
  * and sending the response back to the user.
  */
-const processUserMessage = async (ctx, { flowDynamic, state, provider }) => {
+const processUserMessage = async (ctx: CtxIncomingMessage, { flowDynamic, state, provider }) => {
   await typing(ctx, provider);
   const response = await chatAgent(ctx.body, ctx);
   console.log("response desde app.ts: ", response);
@@ -43,7 +44,7 @@ const processUserMessage = async (ctx, { flowDynamic, state, provider }) => {
 /**
  * Function to handle the queue for each user.
  */
-const handleQueue = async (userId) => {
+const handleQueue = async (userId: string) => {
   const queue = userQueues.get(userId);
 
   if (userLocks.get(userId)) {
@@ -52,9 +53,11 @@ const handleQueue = async (userId) => {
 
   while (queue.length > 0) {
     userLocks.set(userId, true); // Lock the queue
-    const { ctx, flowDynamic, state, provider } = queue.shift();
+    const { ctx, flowDynamic, state, provider } = queue.shift() as { ctx: CtxIncomingMessage, flowDynamic: any, state: any, provider: any };
     try {
-      await processUserMessage(ctx, { flowDynamic, state, provider });
+      // await processUserMessage(ctx, { flowDynamic, state, provider });
+      console.log("ctx", ctx);
+     
     } catch (error) {
       console.error(`Error processing message for user ${userId}:`, error);
     } finally {
@@ -70,6 +73,9 @@ const handleQueue = async (userId) => {
  * Flujo de bienvenida que maneja las respuestas del asistente de IA
  * @type {import('@builderbot/bot').Flow<Provider, MemoryDB>}
  */
+
+
+
 
 const welcomeFlow = addKeyword<Provider, MemoryDB>(EVENTS.WELCOME).addAction(
   async (ctx, { flowDynamic, state, provider }) => {
