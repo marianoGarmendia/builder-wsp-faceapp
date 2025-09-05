@@ -1,3 +1,4 @@
 node_modules/
 dist/
 bot_sessions/*.json
+*.bot.qr.png
