@@ -616,6 +616,7 @@ const main = async () => {
         payload?.data?.id_captacion || "";
       // Endpoint para enviar la respuesta del usuario al mensaje de confirmación de la solicitud
       const endpointConfirm: string | undefined = payload?.data?.endpoint || "";
+      const task: string | undefined = payload?.data?.task || "";
 
       if (!number || !id_captacion) {
         console.error("Faltan 'number' o 'id_captacion' en la solicitud");
@@ -624,7 +625,7 @@ const main = async () => {
 
       // Guarda el mapeo con TTL
       // Consultar dinamicamente en la tarea que está el usuario para saber si es de 'captacion' o 'servicio' 'pedir documentación'
-      setCaptacion(number, { id_captacion, endpointConfirm });
+      setCaptacion(number, { id_captacion, endpointConfirm , task});
 
       // Aca almacenar el 'id_captacion' con el 'number' del usuario. para compararlo cuando haga el envío de la repsuesta del usuario
       // userCaptaciones.set(number, payload.data?.id_captacion);

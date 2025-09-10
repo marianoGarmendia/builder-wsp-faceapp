@@ -28,6 +28,7 @@ export interface CtxIncomingMessage {
       number?: string;
       documents?: { name:  string, type: "pdf" | "image" }[];
       message?: string;
+      task?: "request_documentation" | "validate_customer" | string;
       service?: string;
       endpoint?: string;
       id_captacion?: string;
