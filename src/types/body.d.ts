@@ -26,6 +26,7 @@ export interface CtxIncomingMessage {
     data?: {
       name?: string;
       number?: string;
+      documents?: { name:  string, type: "pdf" | "image" }[];
       message?: string;
       service?: string;
       endpoint?: string;
@@ -47,4 +48,11 @@ export type CaptacionRecord = {
   endpointConfirm?: string; // si te llega en el payload
   createdAt: number;
   expiresAt: number;        // epoch ms
+  task?: "request_documentation" | "validate_customer" | string;
 };
+
+export const responses = {
+  request_documentation: "Se ha realizado una solicitud de documentación, por favor confirma que fuiste tú.",
+  validate_customer: "Se ha realizado una solicitud de validación de cliente, por favor confirma que fuiste tú.",
+  default: "Se ha realizado una solicitud de servicio, por favor confirma que fuiste tú.",
+}
