@@ -490,7 +490,7 @@ const documentFlow = addKeyword<Provider, MemoryDB>(EVENTS.DOCUMENT).addAction(
         "document"
       );
       if (ok) {
-        await flowDynamic([{ body: "Tu archivo ha sido registrado" }]);
+        await flowDynamic([{ body: "Tu archivo ha sido registrado, procederemos con el proceso de captación \n Gracias por tu tiempo" }]);
       } else {
         console.warn("[DOCUMENT] Falló envío al endpoint externo");
       }
@@ -516,15 +516,39 @@ const welcomeFlow = addKeyword<Provider, MemoryDB>(EVENTS.WELCOME).addAction(
       console.log(
         "welcomeFlow: usuario sin captación activa. Mensaje ignorado."
       );
+
+      // TODO: en produccion deberiamos tener un flowDynamic para enviar mensajes de que no estan registradas en el sistema
+
+
       return;
     }
     const valid = /^(1|2|acepto|rechazo|si|no)$/i;
     const msg = normalize(ctx.body);
 
-    if (valid.test(msg)) {
-      return gotoFlow(confirmFlow);
-    } else {
-      console.log("No aceptó ni rechazó la solicitud");
+    const isMediaOrDocument = ctx?.message?.mimetype || ctx?.message?.documentMessage?.mimetype;
+
+    // if (valid.test(msg)) {
+    //   return gotoFlow(confirmFlow);
+    // } else {
+    //   console.log("No aceptó ni rechazó la solicitud");
+    // }
+
+    const { task } = recWelcome;
+
+    if(task === "validate_customer" ) {
+      if (valid.test(msg)) {
+        return gotoFlow(confirmFlow);
+      } else {
+        console.log("No aceptó ni rechazó la solicitud");
+        return flowDynamic([{ body: "Por favor, responda con '1' o '2' para aceptar o rechazar la solicitud." }]);
+      }
+    }else if(task === "request_documentation") {
+      if(isMediaOrDocument) {
+        return gotoFlow(mediaFlowCursor);
+      } else {
+        console.log("No es un archivo o imagen");
+        return flowDynamic([{ body: "Por favor, envíe un archivo o imagen para continuar." }]);
+      }
     }
 
     // Descomentar para produccion
