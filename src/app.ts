@@ -709,7 +709,7 @@ const main = async () => {
       const messageAfterReject: string | undefined = payload?.data?.messageAfterReject || "";
       const lastMessage: string | undefined = payload?.data?.lastMessage || "";
       const messageToClient: string | undefined = payload?.data?.message || "";
-      const idDocument: string | undefined = payload?.data?.idDocument || "";
+      const idDocument: string | undefined = payload?.data?.id_document || "";
       const uploadStatus: "pending" | "completed" | "error" | undefined = payload?.data?.uploadStatus ;
       const completed: boolean | undefined = payload?.data?.completed || false;
 

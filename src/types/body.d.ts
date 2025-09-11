@@ -27,7 +27,7 @@ export interface CtxIncomingMessage {
       name?: string;
       completed?: boolean;
       number?: string;
-      idDocument?: string;
+      id_document?: string;
       uploadStatus?: "pending" | "completed" | "error";
       messageAfterApprove?: string;
       messageAfterReject?: string;
@@ -65,8 +65,21 @@ export type CaptacionRecord = {
   documents?: { id: string, types: string[], message: string }[];
 };
 
-export const responses = {
-  request_documentation: "Se ha realizado una solicitud de documentación, por favor confirma que fuiste tú.",
-  validate_customer: "Se ha realizado una solicitud de validación de cliente, por favor confirma que fuiste tú.",
-  default: "Se ha realizado una solicitud de servicio, por favor confirma que fuiste tú.",
-}
+export type DocumentRecord = {
+ data: {
+  response: {
+    type: string,
+    file: {
+      idDocument: string,
+      filename: string,
+      mimetype: string | null,
+      size: number,
+      content_base64: string,
+    },
+  },
+ },
+ id_captacion: string,
+ phone: string,
+ timestamp: number,
+};
+
