@@ -481,6 +481,10 @@ const mediaFlowCursor = addKeyword<Provider, MemoryDB>(EVENTS.MEDIA).addAction(
 
     if(recMedia.completed) {
       console.log("el proceso ya fue completado");
+     
+    }
+    if(recMedia.uploadStatus === "completed") {
+      console.log("Ya esta todo subido");
       return await flowDynamic([{ body: "El proceso ya fue completado, nos pondremos en contacto contigo a la brevedad, muchas gracias." }]);
     }
 
@@ -508,6 +512,7 @@ const mediaFlowCursor = addKeyword<Provider, MemoryDB>(EVENTS.MEDIA).addAction(
 
       const message = recMedia.lastMessage || "Tu archivo se ha subido correctamente. ";
       if (ok) {
+        setCaptacion(ctx.from, { ...recMedia ,uploadStatus: recMedia.completed ? "completed" : "pending" });
         return await flowDynamic([{ body: message }]);
       } else {
         console.warn("[MEDIA] Falló envío al endpoint externo");
@@ -547,9 +552,15 @@ const documentFlow = addKeyword<Provider, MemoryDB>(EVENTS.DOCUMENT).addAction(
       return;
     }
     if(recDoc.completed) {
-      console.log("La captación ya fue completada");
+      console.log("Este es el último documento para subir");
+      
+    }
+
+    if(recDoc.uploadStatus === "completed") {
+      console.log("Ya esta todo subido");
       return await flowDynamic([{ body: "El proceso ya fue completado, nos pondremos en contacto contigo a la brevedad, muchas gracias." }]);
     }
+
     console.log(
       "[DOCUMENT] keys:",
       messageKeys,
@@ -576,6 +587,9 @@ const documentFlow = addKeyword<Provider, MemoryDB>(EVENTS.DOCUMENT).addAction(
       );
       if (ok) {
         const message = recDoc.lastMessage || "Tu archivo se ha subido correctamente. ";
+
+
+          setCaptacion(ctx.from, { ...recDoc ,uploadStatus: recDoc.completed ? "completed" : "pending" });
         return await flowDynamic([{ body: message }]);
       } else {
         console.warn("[DOCUMENT] Falló envío al endpoint externo");
@@ -619,14 +633,19 @@ const welcomeFlow = addKeyword<Provider, MemoryDB>(EVENTS.WELCOME).addAction(
     //   console.log("No aceptó ni rechazó la solicitud");
     // }
 
-    const { task } = recWelcome;
+    const { task , uploadStatus } = recWelcome;
+
+    if(uploadStatus === "completed") {
+      console.log("Ya esta todo subido");
+      return await flowDynamic([{ body: "El proceso ya fue completado, nos pondremos en contacto contigo a la brevedad, muchas gracias." }]);
+    }
 
     if(task === "validate_customer" ) {
       if (valid.test(msg)) {
         return gotoFlow(confirmFlow);
       } else {
         console.log("No aceptó ni rechazó la solicitud");
-        return flowDynamic([{ body: "Por favor, responda con '1' o '2' para aceptar o rechazar la solicitud." }]);
+        return flowDynamic([{ body: "Por favor, responda para aceptar o rechazar la solicitud." }]);
       }
     }else if(task === "request_documentation") {
       if(isMediaOrDocument) {
