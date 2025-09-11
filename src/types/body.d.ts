@@ -27,7 +27,7 @@ export interface CtxIncomingMessage {
       name?: string;
       completed?: boolean;
       number?: string;
-      documents?: { id:  string, types: string[], message: string }[];
+      idDocument?: string;
       uploadStatus?: "pending" | "completed" | "error";
       messageAfterApprove?: string;
       messageAfterReject?: string;
@@ -54,6 +54,7 @@ export type CaptacionRecord = {
   endpointConfirm?: string; // si te llega en el payload
   completed?: boolean;
   uploadStatus?: "pending" | "completed" | "error";
+  idDocument?: string;
   createdAt: number;
   messageAfterApprove?: string;
   messageAfterReject?: string;

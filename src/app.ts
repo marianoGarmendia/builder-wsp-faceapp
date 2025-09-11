@@ -61,7 +61,8 @@ const saveIncomingFile = async (
 ): Promise<string> => {
   const phoneSegment = sanitizeSegment((ctx as any)?.from || "unknown");
   const idSegment = sanitizeSegment((rec as any)?.id_captacion || "noid");
-  const targetDir = path.join(baseDir, phoneSegment, idSegment);
+  const idDocumentSegment = sanitizeSegment((rec as any)?.idDocument || "noidocument");
+  const targetDir = path.join(baseDir, phoneSegment, idSegment, idDocumentSegment);
   fs.mkdirSync(targetDir, { recursive: true });
   try {
     // Intenta guardar con el provider dentro del directorio por usuario/id
@@ -119,7 +120,7 @@ const sendFileToEndpoint = async (
   kind: "media" | "document"
 ): Promise<boolean> => {
   try {
-    const { endpointConfirm, id_captacion } = rec;
+    const { endpointConfirm, id_captacion, idDocument } = rec;
     if (!endpointConfirm) {
       console.warn(
         "sendFileToEndpoint: endpointConfirm ausente en captación",
@@ -131,7 +132,8 @@ const sendFileToEndpoint = async (
     const expectedDir = path.join(
       MEDIA_DIR,
       sanitizeSegment((ctx as any)?.from || "unknown"),
-      sanitizeSegment(id_captacion || "noid")
+      sanitizeSegment(id_captacion || "noid"),
+      sanitizeSegment(idDocument || "noidocument")
     );
     if (!pathStartsWith(filePath, expectedDir)) {
       console.warn(
@@ -156,6 +158,7 @@ const sendFileToEndpoint = async (
         response: {
           type: kind,
           file: {
+            idDocument,
             filename,
             mimetype: mimeType || null,
             size: buffer.length,
@@ -477,7 +480,7 @@ const mediaFlowCursor = addKeyword<Provider, MemoryDB>(EVENTS.MEDIA).addAction(
     }
 
     if(recMedia.completed) {
-      console.log("La captación ya fue completada");
+      console.log("el proceso ya fue completado");
       return await flowDynamic([{ body: "El proceso ya fue completado, nos pondremos en contacto contigo a la brevedad, muchas gracias." }]);
     }
 
@@ -682,7 +685,7 @@ const main = async () => {
   provider.server.post(
     "/v1/messages",
     handleCtx(async (bot, req, res) => {
-      // Cuerpo del mensaje que le envaimos al usuario para niciar la conversacion
+      // Cuerpo del mensaje que le envaimos al usuario para iniciar la conversacion
       console.log("req.body", req.body);
 
       // TODO:
@@ -695,6 +698,8 @@ const main = async () => {
         payload: Payload;
       };
 
+
+
       const id_captacion: string | undefined =
         payload?.data?.id_captacion || "";
       // Endpoint para enviar la respuesta del usuario al mensaje de confirmación de la solicitud
@@ -704,7 +709,7 @@ const main = async () => {
       const messageAfterReject: string | undefined = payload?.data?.messageAfterReject || "";
       const lastMessage: string | undefined = payload?.data?.lastMessage || "";
       const messageToClient: string | undefined = payload?.data?.message || "";
-      const documents: { id: string, types: string[], message: string }[] | undefined = payload?.data?.documents || [];
+      const idDocument: string | undefined = payload?.data?.idDocument || "";
       const uploadStatus: "pending" | "completed" | "error" | undefined = payload?.data?.uploadStatus ;
       const completed: boolean | undefined = payload?.data?.completed || false;
 
@@ -715,7 +720,7 @@ const main = async () => {
 
       // Guarda el mapeo con TTL
       // Consultar dinamicamente en la tarea que está el usuario para saber si es de 'captacion' o 'servicio' 'pedir documentación'
-      setCaptacion(number, { id_captacion, endpointConfirm , task, messageAfterApprove, messageAfterReject, lastMessage, message:messageToClient, documents , uploadStatus , completed});
+      setCaptacion(number, { id_captacion, endpointConfirm , task, messageAfterApprove, messageAfterReject, lastMessage, message:messageToClient, idDocument , uploadStatus , completed});
 
       // Aca almacenar el 'id_captacion' con el 'number' del usuario. para compararlo cuando haga el envío de la repsuesta del usuario
       // userCaptaciones.set(number, payload.data?.id_captacion);
