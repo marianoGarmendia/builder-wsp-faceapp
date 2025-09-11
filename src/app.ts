@@ -23,6 +23,8 @@ import { mkdir } from "fs/promises";
 dotenv.config();
 
 // TODO: Gestionar la cantidad de mensajes en cada respuesta, maximo 3 mensajes por respuesta
+// TODO: Cuando ya se haya enviado el ultimo mensaje, confirmando o no , no se debe enviar ningun mensaje mas
+// TODO: 
 
 const token = process.env.TOKEN;
 
@@ -323,6 +325,7 @@ const processUserMessageConfirm = async (
     
 
     if (response.status === 200) {
+      setCaptacion(ctx.from, { ...rec ,uploadStatus: "completed" });
       return await flowDynamic([{ body: messageResponse }]);
     } else {
       await flowDynamic([
@@ -383,6 +386,7 @@ const handleQueue = async (userId: string) => {
         console.log("No se encontró la captación");
         return;
       }
+
       if(rec.uploadStatus === "completed") {
         console.log("La confirmacion fue completada");
         return await flowDynamic([{ body: "Ya completaste el proceso!  nos pondremos en contacto a la brevedad, muchas gracias." }]);
