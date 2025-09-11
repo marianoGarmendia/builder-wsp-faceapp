@@ -22,6 +22,8 @@ import { mkdir } from "fs/promises";
 
 dotenv.config();
 
+// TODO: Gestionar la cantidad de mensajes en cada respuesta, maximo 3 mensajes por respuesta
+
 const token = process.env.TOKEN;
 
 const MEDIA_DIR = join(process.cwd(), "media");
@@ -316,6 +318,8 @@ const processUserMessageConfirm = async (
 
     const { messageAfterApprove, messageAfterReject } = rec;
     const messageResponse = confirm_service ? messageAfterApprove : messageAfterReject;
+
+    // TODO: acepte que lo llamen si rechazó la solicitud
     
 
     if (response.status === 200) {
@@ -379,9 +383,9 @@ const handleQueue = async (userId: string) => {
         console.log("No se encontró la captación");
         return;
       }
-      if(rec.completed) {
-        console.log("La captación ya fue completada");
-        return await flowDynamic([{ body: "El proceso ya fue completado, nos pondremos en contacto contigo a la brevedad, muchas gracias." }]);
+      if(rec.uploadStatus === "completed") {
+        console.log("La confirmacion fue completada");
+        return await flowDynamic([{ body: "Ya completaste el proceso!  nos pondremos en contacto a la brevedad, muchas gracias." }]);
       
       }
 
@@ -637,7 +641,7 @@ const welcomeFlow = addKeyword<Provider, MemoryDB>(EVENTS.WELCOME).addAction(
 
     if(uploadStatus === "completed") {
       console.log("Ya esta todo subido");
-      return await flowDynamic([{ body: "El proceso ya fue completado, nos pondremos en contacto contigo a la brevedad, muchas gracias." }]);
+      return await flowDynamic([{ body: "Ya completaste el proceso!  nos pondremos en contacto a la brevedad, muchas gracias." }]);
     }
 
     if(task === "validate_customer" ) {
@@ -645,14 +649,14 @@ const welcomeFlow = addKeyword<Provider, MemoryDB>(EVENTS.WELCOME).addAction(
         return gotoFlow(confirmFlow);
       } else {
         console.log("No aceptó ni rechazó la solicitud");
-        return flowDynamic([{ body: "Por favor, responda para aceptar o rechazar la solicitud." }]);
+        return flowDynamic([{ body: "Por favor, respondé para aceptar o rechazar la solicitud." }]);
       }
     }else if(task === "request_documentation") {
       if(isMediaOrDocument) {
         return gotoFlow(mediaFlowCursor);
       } else {
         console.log("No es un archivo o imagen");
-        return flowDynamic([{ body: "Por favor, envíe un archivo o imagen para continuar." }]);
+        return flowDynamic([{ body: "Por favor, envía un archivo o una imagen" }]);
       }
     }
 
