@@ -52,21 +52,33 @@ const extractMimeTypeFromCtx = (ctx: any): string | undefined => {
 };
 
 // Guardado con fallback cuando el provider no detecta mimetype
+const sanitizeSegment = (s: string) => String(s ?? "").replace(/[^\w.\-]/g, "_");
 const saveIncomingFile = async (
   ctx: any,
   provider: any,
-  baseDir: string
+  baseDir: string,
+  rec?: CaptacionRecord
 ): Promise<string> => {
+  const phoneSegment = sanitizeSegment((ctx as any)?.from || "unknown");
+  const idSegment = sanitizeSegment((rec as any)?.id_captacion || "noid");
+  const targetDir = path.join(baseDir, phoneSegment, idSegment);
+  fs.mkdirSync(targetDir, { recursive: true });
   try {
-    return await provider.saveFile(ctx, { path: baseDir });
+    // Intenta guardar con el provider dentro del directorio por usuario/id
+    return await provider.saveFile(ctx, { path: targetDir });
   } catch (err: any) {
     if (!err?.message?.includes("MIME type not found")) throw err;
     console.warn("saveFile: MIME no detectado, usando fallback.");
     const buffer: Buffer = await downloadMediaMessage(ctx as any, "buffer", {});
     const mimeType = extractMimeTypeFromCtx(ctx);
     const extension = mimeType?.split("/")?.[1] || "bin";
-    const fileName = `file-${Date.now()}.${extension}`;
-    const destPath = path.join(baseDir, fileName);
+    const m: any = (ctx as any)?.message || {};
+    const suggestedName =
+      m?.documentMessage?.fileName ||
+      m?.documentMessage?.title ||
+      (m?.imageMessage ? `image-${Date.now()}.${extension}` : `file-${Date.now()}.${extension}`);
+    const safeName = sanitizeSegment(suggestedName);
+    const destPath = path.join(targetDir, safeName);
     fs.mkdirSync(path.dirname(destPath), { recursive: true });
     fs.writeFileSync(destPath, buffer);
     return destPath;
@@ -74,6 +86,31 @@ const saveIncomingFile = async (
 };
 
 // Enviar archivo al endpoint externo como JSON con base64
+const pathStartsWith = (child: string, parent: string) => {
+  const childRes = path.resolve(child);
+  const parentRes = path.resolve(parent);
+  return childRes === parentRes || childRes.startsWith(parentRes + path.sep);
+};
+
+const findLatestFileInDir = (dirPath: string): string | undefined => {
+  try {
+    const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+    const files = entries.filter((e) => e.isFile()).map((e) => e.name);
+    if (files.length === 0) return undefined;
+    let latest: { name: string; mtimeMs: number } | undefined;
+    for (const name of files) {
+      const full = path.join(dirPath, name);
+      const stat = fs.statSync(full);
+      if (!latest || stat.mtimeMs > latest.mtimeMs) {
+        latest = { name, mtimeMs: stat.mtimeMs };
+      }
+    }
+    return latest ? path.join(dirPath, latest.name) : undefined;
+  } catch {
+    return undefined;
+  }
+};
+
 const sendFileToEndpoint = async (
   filePath: string,
   ctx: CtxIncomingMessage,
@@ -90,8 +127,29 @@ const sendFileToEndpoint = async (
       );
       return false;
     }
+    // Validar que el path pertenezca al usuario y captación esperados
+    const expectedDir = path.join(
+      MEDIA_DIR,
+      sanitizeSegment((ctx as any)?.from || "unknown"),
+      sanitizeSegment(id_captacion || "noid")
+    );
+    if (!pathStartsWith(filePath, expectedDir)) {
+      console.warn(
+        "sendFileToEndpoint: filePath fuera de carpeta esperada, usando último archivo de la carpeta",
+        { filePath, expectedDir }
+      );
+      const fallbackPath = findLatestFileInDir(expectedDir);
+      if (fallbackPath) {
+        filePath = fallbackPath;
+      } else {
+        console.error("sendFileToEndpoint: no se encontró archivo en", expectedDir);
+        return false;
+      }
+    }
     const buffer = fs.readFileSync(filePath);
     const filename = path.basename(filePath);
+
+    // TODO: Limitar el tamaño del archivo a 10MB
 
     const payload = {
       data: {
@@ -171,6 +229,7 @@ const mediaFlowGpt = addKeyword<Provider, MemoryDB>(
     //   `✅ Recibido y guardado: *${safeName}* (${mimeType || "desconocido"})`,
     // ]);
 
+   
     // 5) (Opcional) Reenviar inmediatamente (ver sección 3)
     // await flowDynamic([{ body: "Te reenvío el archivo:", media: filePath }]);
   });
@@ -250,9 +309,11 @@ const processUserMessageConfirm = async (
       },
       timeout: 10000,
     });
-    const messageResponse = confirm_service
-      ? "Tu respuesta ha sido registrada confirmando la solicitud del servicio, nos pondremos en contacto contigo a la brevedad \n Gracias por tu tiempo"
-      : "Tu respuesta ha sido registrada rechazando la solicitud del servicio \n Gracias por tu tiempo";
+
+
+    const { messageAfterApprove, messageAfterReject } = rec;
+    const messageResponse = confirm_service ? messageAfterApprove : messageAfterReject;
+    
 
     if (response.status === 200) {
       return await flowDynamic([{ body: messageResponse }]);
@@ -315,6 +376,13 @@ const handleQueue = async (userId: string) => {
         console.log("No se encontró la captación");
         return;
       }
+      if(rec.completed) {
+        console.log("La captación ya fue completada");
+        return await flowDynamic([{ body: "El proceso ya fue completado, nos pondremos en contacto contigo a la brevedad, muchas gracias." }]);
+      
+      }
+
+
       const isAccept = new Set(["1", "acepto", "si"]).has(
         normalizeConfirm(body)
       );
@@ -376,6 +444,8 @@ const confirmFlow = addKeyword<Provider, MemoryDB>(
     userQueues.set(userId, []);
   }
 
+
+
   const queue = userQueues.get(userId);
   queue.push({ ctx, flowDynamic, state, provider });
 
@@ -403,8 +473,14 @@ const mediaFlowCursor = addKeyword<Provider, MemoryDB>(EVENTS.MEDIA).addAction(
         "body:",
         (ctx as any)?.body
       );
-      // return;
+      return;
     }
+
+    if(recMedia.completed) {
+      console.log("La captación ya fue completada");
+      return await flowDynamic([{ body: "El proceso ya fue completado, nos pondremos en contacto contigo a la brevedad, muchas gracias." }]);
+    }
+
     console.log(
       "[MEDIA] keys:",
       messageKeys,
@@ -413,7 +489,7 @@ const mediaFlowCursor = addKeyword<Provider, MemoryDB>(EVENTS.MEDIA).addAction(
       "body:",
       (ctx as any)?.body
     );
-    const savedPath = await saveIncomingFile(ctx, provider, MEDIA_DIR);
+    const savedPath = await saveIncomingFile(ctx, provider, MEDIA_DIR , recMedia);
     await state.update({ lastMediaPath: savedPath });
     // await flowDynamic([{ body: '✅ Archivo guardado. Te lo reenvío como confirmación:', media: savedPath }])
     console.log("✅ Archivo guardado, path: ", savedPath);
@@ -426,8 +502,10 @@ const mediaFlowCursor = addKeyword<Provider, MemoryDB>(EVENTS.MEDIA).addAction(
         mimeFromCtx,
         "media"
       );
+
+      const message = recMedia.lastMessage || "Tu archivo se ha subido correctamente. ";
       if (ok) {
-        return await flowDynamic([{ body: "Tu archivo ha sido registrado, nos pondremos en contacto contigo a la brevedad \n Gracias por tu tiempo" }]);
+        return await flowDynamic([{ body: message }]);
       } else {
         console.warn("[MEDIA] Falló envío al endpoint externo");
         throw new Error(`HTTP failed to send file to endpoint`);
@@ -463,7 +541,11 @@ const documentFlow = addKeyword<Provider, MemoryDB>(EVENTS.DOCUMENT).addAction(
         "body:",
         (ctx as any)?.body
       );
-      // return;
+      return;
+    }
+    if(recDoc.completed) {
+      console.log("La captación ya fue completada");
+      return await flowDynamic([{ body: "El proceso ya fue completado, nos pondremos en contacto contigo a la brevedad, muchas gracias." }]);
     }
     console.log(
       "[DOCUMENT] keys:",
@@ -477,7 +559,7 @@ const documentFlow = addKeyword<Provider, MemoryDB>(EVENTS.DOCUMENT).addAction(
       "body:",
       (ctx as any)?.body
     );
-    const savedPath = await saveIncomingFile(ctx, provider, MEDIA_DIR);
+    const savedPath = await saveIncomingFile(ctx, provider, MEDIA_DIR, recDoc);
     await state.update({ lastDocumentPath: savedPath });
     console.log("✅ Documento guardado DOCUMENT, path: ", savedPath);
     // Si hay captación, enviar al endpoint de confirmación
@@ -490,7 +572,8 @@ const documentFlow = addKeyword<Provider, MemoryDB>(EVENTS.DOCUMENT).addAction(
         "document"
       );
       if (ok) {
-        await flowDynamic([{ body: "Tu archivo ha sido registrado, procederemos con el proceso de captación \n Gracias por tu tiempo" }]);
+        const message = recDoc.lastMessage || "Tu archivo se ha subido correctamente. ";
+        return await flowDynamic([{ body: message }]);
       } else {
         console.warn("[DOCUMENT] Falló envío al endpoint externo");
       }
@@ -617,6 +700,13 @@ const main = async () => {
       // Endpoint para enviar la respuesta del usuario al mensaje de confirmación de la solicitud
       const endpointConfirm: string | undefined = payload?.data?.endpoint || "";
       const task: string | undefined = payload?.data?.task || "";
+      const messageAfterApprove: string | undefined = payload?.data?.messageAfterApprove || "";
+      const messageAfterReject: string | undefined = payload?.data?.messageAfterReject || "";
+      const lastMessage: string | undefined = payload?.data?.lastMessage || "";
+      const messageToClient: string | undefined = payload?.data?.message || "";
+      const documents: { id: string, types: string[], message: string }[] | undefined = payload?.data?.documents || [];
+      const uploadStatus: "pending" | "completed" | "error" | undefined = payload?.data?.uploadStatus ;
+      const completed: boolean | undefined = payload?.data?.completed || false;
 
       if (!number || !id_captacion) {
         console.error("Faltan 'number' o 'id_captacion' en la solicitud");
@@ -625,14 +715,14 @@ const main = async () => {
 
       // Guarda el mapeo con TTL
       // Consultar dinamicamente en la tarea que está el usuario para saber si es de 'captacion' o 'servicio' 'pedir documentación'
-      setCaptacion(number, { id_captacion, endpointConfirm , task});
+      setCaptacion(number, { id_captacion, endpointConfirm , task, messageAfterApprove, messageAfterReject, lastMessage, message:messageToClient, documents , uploadStatus , completed});
 
       // Aca almacenar el 'id_captacion' con el 'number' del usuario. para compararlo cuando haga el envío de la repsuesta del usuario
       // userCaptaciones.set(number, payload.data?.id_captacion);
       // console.log("sending message", number, message);
 
       try {
-        await bot?.sendMessage(number, message, {});
+        await bot?.sendMessage(number, messageToClient, {});
         return res.end("sended");
       } catch (error) {
         console.error("Error sending message", error);

@@ -25,8 +25,13 @@ export interface CtxIncomingMessage {
   export type Payload = {
     data?: {
       name?: string;
+      completed?: boolean;
       number?: string;
-      documents?: { name:  string, type: "pdf" | "image" }[];
+      documents?: { id:  string, types: string[], message: string }[];
+      uploadStatus?: "pending" | "completed" | "error";
+      messageAfterApprove?: string;
+      messageAfterReject?: string;
+      lastMessage?: string;
       message?: string;
       task?: "request_documentation" | "validate_customer" | string;
       service?: string;
@@ -47,9 +52,16 @@ export interface CtxIncomingMessage {
 export type CaptacionRecord = {
   id_captacion: string;
   endpointConfirm?: string; // si te llega en el payload
+  completed?: boolean;
+  uploadStatus?: "pending" | "completed" | "error";
   createdAt: number;
+  messageAfterApprove?: string;
+  messageAfterReject?: string;
+  lastMessage?: string;
+  message?: string;
   expiresAt: number;        // epoch ms
   task?: "request_documentation" | "validate_customer" | string;
+  documents?: { id: string, types: string[], message: string }[];
 };
 
 export const responses = {
