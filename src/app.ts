@@ -325,7 +325,7 @@ const processUserMessageConfirm = async (
 
 
     const { messageAfterApprove, messageAfterReject } = rec;
-    const messageResponse = confirm_service ? messageAfterApprove : messageAfterReject;
+    const messageResponse = user_confirm ? messageAfterApprove : messageAfterReject;
 
     // TODO: acepte que lo llamen si rechazó la solicitud
     
@@ -400,9 +400,9 @@ const handleQueue = async (userId: string) => {
       }
 
 
-      
-      const response = await agent({message_to_confirmation: rec.message, message_user: body});
-      const { user_confirm, user_response , undefined_confirm } = response[0].args;
+      const { iaContext } = rec;
+      const response = await agent({message_to_confirmation: rec.message, message_user: body, iaContext , step: rec.task as "validate_customer" | "request_documentation"});
+      const { user_confirm, user_response , undefined_confirm  } = response[0].args;
 
       if(undefined_confirm) {
         state.update({ undefined_confirm: true , from: ctx.from });
@@ -754,6 +754,7 @@ const main = async () => {
       const idDocument: string | undefined = payload?.data?.id_document || "";
       const uploadStatus: "pending" | "completed" | "error" | undefined = payload?.data?.uploadStatus ;
       const completed: boolean | undefined = payload?.data?.completed || false;
+      const iaContext: string | undefined = payload?.data?.iaContext || "";
 
       if (!number || !id_captacion) {
         console.error("Faltan 'number' o 'id_captacion' en la solicitud");
@@ -762,7 +763,7 @@ const main = async () => {
 
       // Guarda el mapeo con TTL
       // Consultar dinamicamente en la tarea que está el usuario para saber si es de 'captacion' o 'servicio' 'pedir documentación'
-      setCaptacion(number, { id_captacion, endpointConfirm , task, messageAfterApprove, messageAfterReject, lastMessage, message:messageToClient, idDocument , uploadStatus , completed});
+      setCaptacion(number, { id_captacion, endpointConfirm , task, messageAfterApprove, messageAfterReject, lastMessage, message:messageToClient, idDocument , uploadStatus , completed, iaContext});
 
       // Aca almacenar el 'id_captacion' con el 'number' del usuario. para compararlo cuando haga el envío de la repsuesta del usuario
       // userCaptaciones.set(number, payload.data?.id_captacion);

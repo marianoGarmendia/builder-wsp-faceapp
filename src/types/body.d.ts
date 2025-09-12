@@ -22,12 +22,13 @@ export interface CtxIncomingMessage {
     host: string; // número "host"
   }
 
-  
+
 
   export type Payload = {
     data?: {
       name?: string;
       completed?: boolean;
+      iaContext?: string;
       number?: string;
       id_document?: string;
       uploadStatus?: "pending" | "completed" | "error";
@@ -53,6 +54,7 @@ export interface CtxIncomingMessage {
   // key-value con expiración
 export type CaptacionRecord = {
   id_captacion: string;
+  iaContext?: string;
   endpointConfirm?: string; // si te llega en el payload
   completed?: boolean;
   uploadStatus?: "pending" | "completed" | "error";
