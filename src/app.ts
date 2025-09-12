@@ -284,17 +284,22 @@ const processUserMessageConfirm = async (
   await typing(ctx, provider);
   // const response = await chatAgent(ctx.body, ctx);
   console.log("processUserMessageConfirm: ");
+  console.log("user_confirm", user_confirm);
+  console.log("user_response", user_response);
+  console.log("undefined_confirm", undefined_confirm);
 
   console.log("rec", rec);
 
   const { endpointConfirm } = rec;
   console.log("endpointConfirm", endpointConfirm);
 
+
+
   const payload = {
     data: {
       response: {
         type: "boolean",
-        confirm_service: confirm_service,
+        confirm_service: user_confirm,
       },
       id_captacion: rec.id_captacion,
       phone: ctx.from,
