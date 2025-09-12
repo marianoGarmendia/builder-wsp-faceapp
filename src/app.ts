@@ -659,7 +659,7 @@ const welcomeFlow = addKeyword<Provider, MemoryDB>(EVENTS.WELCOME).addAction(
     //   console.log("No aceptó ni rechazó la solicitud");
     // }
 
-    const { task , uploadStatus } = recWelcome;
+    const { task , uploadStatus , iaContext , message } = recWelcome;
 
     if(uploadStatus === "completed") {
       console.log("Ya esta todo subido");
@@ -675,7 +675,9 @@ const welcomeFlow = addKeyword<Provider, MemoryDB>(EVENTS.WELCOME).addAction(
         return gotoFlow(mediaFlowCursor);
       } else {
         console.log("No es un archivo o imagen");
-        return flowDynamic([{ body: "Por favor, envía un archivo o una imagen" }]);
+        const response = await agent({message_to_confirmation: message, message_user: ctx.body, iaContext, step: task as "validate_customer" | "request_documentation"});
+        const { user_response } = response[0].args;
+        return flowDynamic([{ body: user_response }]);
       }
     }
 
