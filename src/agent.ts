@@ -97,7 +97,9 @@ const processStep = step === "validate_customer" ? "Estas en un proceso confirma
 
 const contextFilter = await filterContext(iaContext);
 
-const context = contextFilter ? `${contextFilter}` : "No hay contexto adicional";
+const context = contextFilter ? contextFilter : "No hay contexto adicional";
+
+console.log("context: ---------->", context);
  
   const prompt = `
   Eres encargado del área de confirmaciones de solicitudes. en este caso el usuario debe confimrar o rechazar lo siguiente:
@@ -119,7 +121,11 @@ const context = contextFilter ? `${contextFilter}` : "No hay contexto adicional"
   No hables de temas que no esten relacionados con el contexto adicional o el mensaje al usuario.
   Tu respuesta debe ser estructurada segun la herramienta 'confirm_request'.
   `
+
+  console.log("-------------------------------------------------->");
  console.log("prompt agent: ---------------->", prompt);
+ console.log("-------------------------------------------------->");
+
 
   const strictTrueResult = await llmWithStrictTrue.invoke([
     new SystemMessage(prompt),
