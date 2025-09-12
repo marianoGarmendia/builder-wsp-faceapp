@@ -15,9 +15,14 @@
     "@builderbot/provider-baileys": "1.2.9",
     "axios": "^1.11.0",
     "dotenv": "^17.2.2",
-    "sharp": "0.33.5"
+    "sharp": "0.33.5",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@langchain/core": "^0.3.75",
+    "@langchain/langgraph": "^0.4.9",
+    "@langchain/langgraph-cli": "^0.0.66",
+    "@langchain/openai": "^0.6.11",
     "tsx": "4.20.5"
   },
   "overrides": {

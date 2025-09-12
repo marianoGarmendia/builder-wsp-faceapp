@@ -13,6 +13,7 @@ import { downloadMediaMessage } from "baileys";
 import { typing } from "./utils/presence";
 import { CaptacionRecord, CtxIncomingMessage, Payload } from "./types/body";
 import { setCaptacion, getCaptacion } from "./utils/kv-memory-ttl";
+import { agent } from "./agent";
 import axios from "axios";
 import dotenv from "dotenv";
 import { join } from "path";
@@ -278,7 +279,7 @@ const processUserMessageConfirm = async (
   ctx: CtxIncomingMessage,
   rec: CaptacionRecord,
   confirm_service: boolean,
-  { flowDynamic, state, provider }
+  { flowDynamic, state, provider, user_response, user_confirm, undefined_confirm }
 ) => {
   await typing(ctx, provider);
   // const response = await chatAgent(ctx.body, ctx);
@@ -394,11 +395,23 @@ const handleQueue = async (userId: string) => {
       }
 
 
+      
+      const response = await agent({message_to_confirmation: rec.message, message_user: body});
+      const { user_confirm, user_response , undefined_confirm } = response[0].args;
+
+      if(undefined_confirm) {
+        state.update({ undefined_confirm: true , from: ctx.from });
+        return await flowDynamic([{ body: user_response }]);
+      }
+
       const isAccept = new Set(["1", "acepto", "si"]).has(
         normalizeConfirm(body)
       );
       // 2) enviar la respuesta al endpoint de winwin
       await processUserMessageConfirm(ctx, rec, isAccept, {
+        user_response,
+        user_confirm,
+        undefined_confirm,
         flowDynamic,
         state,
         provider,
