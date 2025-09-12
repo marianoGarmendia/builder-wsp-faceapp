@@ -96,7 +96,7 @@ export const agent = async ({message_to_confirmation, message_user , step , iaCo
 const processStep = step === "validate_customer" ? "Estas en un proceso confirmación" : step === "request_documentation" ? "Estas en el paso de solicitud de documentación" : "";
 
 
-const contextFilter = await filterContext(iaContext);
+const contextFilter = await filterContext(iaContext.toString());
 
 const context = contextFilter ? contextFilter : "No hay contexto adicional";
 
@@ -108,11 +108,14 @@ console.log("context: ---------->", context);
 
   contexto adicional: ${context}
 
-  el usuario va a recibir un mensaje del Asistente, debes evaluar el mensaje y determinar si la respuesta del usuario es una confirmacion, rechazo o pregunta.
+  El usuario va a recibir el siguiente mensaje del asistente:
 
-  Si es una pregunta, debes responderla de manera clara y concisa, sin inventar informacion. y sin otra información que no se encuentre dentro de este contexto en general.
+  ${message_to_confirmation}
 
-  Tu respuesta debe ser estructurada segun la herramienta 'confirm_request'.
+  A este mensaje el usuario va a responder aceptando, rechazando o haciendo alguna pregunta al respecto.
+  en caso de que repsonda con una pregunta debes responderla de manera clara y concisa, sin inventar informacion. y sin otra información que no se encuentre dentro de este contexto en general, dentro de la conversacion con el usuario.
+
+  Tu respuesta debe ser estructurada segun la herramienta confirm_request.
   `
 
   console.log("-------------------------------------------------->");
@@ -132,8 +135,8 @@ console.log("context: ---------->", context);
 
 
 
-  
-agent({message_to_confirmation: "👋 Hola, te saludamos de Perdm, representante autorizado de izzi. Queremos confirmar contigo que contrataste el paquete *INTERNET 1000 MEGAS / SKEELO / VIX PREMIUM / MAX BA / APPLE TV+ *. ¿Podrías confirmarnos que este es el paquete correcto? ✅", message_user: "Quien lo contrato? y cuando?" , iaContext: '{"fechaSolicitud":"2025-09-12","pedido":{"props":{"grupo":["2_play","5_gb_x_12_m_2_pm","8_gb_x_12_m_2_pm","comp_tus_datos_x_12_m_2_pm","plan_famil_x_12_m_2_pm"],"familia":["internet"],"ideal_para":[],"permanencia":"12_meses","tipo_de_servicio":["residencial"]},"precio":0,"producto":{"nombre":"INTERNET 150 MEGAS / VIX PREMIUM / SKEELO / MAX BA","descripcion":"Este pack ofrece 150 Megas de Internet, acceso a VIX Premium, SKEELO y almacenamiento MAX BA. Perfecto para hogares que necesitan velocidad superior para streaming, gaming y videollamadas simultáneas. ¡Conéctate con lo mejor de la velocidad y el entretenimiento digital ahora!","tags":null}},"cliente":{"nombre":"simo","apellido":"lopecio","apellido2":"salinacio","email":"simonlopezs@gmail.com"}}'});
+  console.log("llamando al agente")
+agent({message_to_confirmation: "👋 Hola, te saludamos de Perdm, representante autorizado de izzi. Queremos confirmar contigo que contrataste el paquete *INTERNET 1000 MEGAS / SKEELO / VIX PREMIUM / MAX BA / APPLE TV+ *. ¿Podrías confirmarnos que este es el paquete correcto? ✅", message_user: "Quien lo contrato? y cuando?" , iaContext: ''});
 
   // await structuredLlm.invoke([{
   //   role: "user",
