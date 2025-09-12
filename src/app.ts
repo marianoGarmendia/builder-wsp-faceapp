@@ -470,7 +470,7 @@ const confirmFlow = addKeyword<Provider, MemoryDB>(
     return;
   }
   if (!userQueues.has(userId)) {
-    userQueues.set(userId, []);
+    userQueues.set(userId, []); 
   }
 
 
@@ -666,13 +666,10 @@ const welcomeFlow = addKeyword<Provider, MemoryDB>(EVENTS.WELCOME).addAction(
       return await flowDynamic([{ body: "Ya completaste el proceso!  nos pondremos en contacto a la brevedad, muchas gracias." }]);
     }
 
-    if(task === "validate_customer" ) {
-      if (valid.test(msg)) {
+    if(task === "validate_customer") {
+      
         return gotoFlow(confirmFlow);
-      } else {
-        console.log("No aceptó ni rechazó la solicitud");
-        return flowDynamic([{ body: "Por favor, respondé para aceptar o rechazar la solicitud." }]);
-      }
+     
     }else if(task === "request_documentation") {
       if(isMediaOrDocument) {
         return gotoFlow(mediaFlowCursor);
