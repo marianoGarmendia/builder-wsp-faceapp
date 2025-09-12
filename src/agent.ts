@@ -133,7 +133,7 @@ console.log("context: ---------->", context);
 
 
   
-// agent({message_to_confirmation: "👋 Hola, te saludamos de Perdm, representante autorizado de izzi. Queremos confirmar contigo que contrataste el paquete *INTERNET 1000 MEGAS / SKEELO / VIX PREMIUM / MAX BA / APPLE TV+ *. ¿Podrías confirmarnos que este es el paquete correcto? ✅", message_user: ""});
+agent({message_to_confirmation: "👋 Hola, te saludamos de Perdm, representante autorizado de izzi. Queremos confirmar contigo que contrataste el paquete *INTERNET 1000 MEGAS / SKEELO / VIX PREMIUM / MAX BA / APPLE TV+ *. ¿Podrías confirmarnos que este es el paquete correcto? ✅", message_user: "Quien lo contrato? y cuando?" , iaContext: '{"fechaSolicitud":"2025-09-12","pedido":{"props":{"grupo":["2_play","5_gb_x_12_m_2_pm","8_gb_x_12_m_2_pm","comp_tus_datos_x_12_m_2_pm","plan_famil_x_12_m_2_pm"],"familia":["internet"],"ideal_para":[],"permanencia":"12_meses","tipo_de_servicio":["residencial"]},"precio":0,"producto":{"nombre":"INTERNET 150 MEGAS / VIX PREMIUM / SKEELO / MAX BA","descripcion":"Este pack ofrece 150 Megas de Internet, acceso a VIX Premium, SKEELO y almacenamiento MAX BA. Perfecto para hogares que necesitan velocidad superior para streaming, gaming y videollamadas simultáneas. ¡Conéctate con lo mejor de la velocidad y el entretenimiento digital ahora!","tags":null}},"cliente":{"nombre":"simo","apellido":"lopecio","apellido2":"salinacio","email":"simonlopezs@gmail.com"}}'});
 
   // await structuredLlm.invoke([{
   //   role: "user",
