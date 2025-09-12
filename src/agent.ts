@@ -143,6 +143,6 @@ const context = contextFilter ? `contexto adicional sobre el cual puedes obtener
   //   role: "user",
   //   content: `I am 6'5" tall and love fruit.`
   // }]);
-   filterContext(`   {"fechaSolicitud":"2025-09-12","cliente":{"nombre":"simo","apellido":"lopecio","apellido2":"salinacio","email":"simonlopezs@gmail.com"},"instrucciones_documentos":"El ine es tu documento de identificación oficial. Puedes sacarle una foto, o enviar un pdf o una imagen escaneada. El comprobante de domicilio puede ser una foto o pdf de cualquier boleta de servicios donde figure tu dirección."}`);
+
 
   
