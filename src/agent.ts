@@ -67,12 +67,37 @@ import "dotenv/config";
   // because we passed `tool_choice` and `strict: true`.
 
 
+const filterContext = async (context: string): Promise<string> => {
+  try {
+    const response = await model.invoke([
+      new SystemMessage(`Tu unica tarea es transformar el contexto que te va a llegar del usuario.
 
+        Este es solo un ejemplo de como puede llegarte el contexto, ten en cuenta que puede haber mas campos o menos campos, pero siempre sera un objeto en string con varias propiedades.
+         {"fechaSolicitud":"2025-09-12","cliente":{"nombre":"simo","apellido":"lopecio","apellido2":"salinacio","email":"simonlopezs@gmail.com"},"instrucciones_documentos":"El ine es tu documento de identificación oficial. Puedes sacarle una foto, o enviar un pdf o una imagen escaneada. El comprobante de domicilio puede ser una foto o pdf de cualquier boleta de servicios donde figure tu dirección."}
+  
+         debes tranformarlo a un solo string en lenguaje natural, que tenga sentido, debes identificar datos que sean innecesarios o no relevantes para ser devuelto a un flujo el cual va a consumirlo y procesar el contexto para responder posibles preguntas del usuario.
+         Debes retornar el string sin ningun otro texto adicional.
+         debe llegar en español.
+        
+        `),
+      new HumanMessage(context),
+    ]);
+    console.log("response filterContext: ---------->", response.content);
+    return response.content as string;
+    
+  } catch (error) {
+    console.error("Error al filtrar el contexto", error);
+    return "";
+  }
+}
 
 export const agent = async ({message_to_confirmation, message_user , step , iaContext}: {message_to_confirmation: string, message_user: string, step?: string, iaContext?: string}) => {
 const processStep = step === "validate_customer" ? "Estas en un proceso confirmación" : step === "request_documentation" ? "Estas en el paso de solicitud de documentación" : "";
 
-const context = iaContext ? `contexto adicional sobre el cual puedes obtener información para responder posibles preguntas del usuario: ${iaContext}` : "No hay contexto adicional";
+
+const contextFilter = await filterContext(iaContext);
+
+const context = contextFilter ? `contexto adicional sobre el cual puedes obtener información para responder posibles preguntas del usuario: ${contextFilter}` : "No hay contexto adicional";
  
   const prompt = `
   Eres encargado del área de confirmaciones de solicitudes. en este caso el usuario debe confimrar o rechazar lo siguiente:
@@ -118,3 +143,6 @@ const context = iaContext ? `contexto adicional sobre el cual puedes obtener inf
   //   role: "user",
   //   content: `I am 6'5" tall and love fruit.`
   // }]);
+   filterContext(`   {"fechaSolicitud":"2025-09-12","cliente":{"nombre":"simo","apellido":"lopecio","apellido2":"salinacio","email":"simonlopezs@gmail.com"},"instrucciones_documentos":"El ine es tu documento de identificación oficial. Puedes sacarle una foto, o enviar un pdf o una imagen escaneada. El comprobante de domicilio puede ser una foto o pdf de cualquier boleta de servicios donde figure tu dirección."}`);
+
+  
