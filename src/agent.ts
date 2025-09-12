@@ -53,21 +53,54 @@ import "dotenv/config";
   
   const llmWithStrictTrue = new ChatOpenAI({
     model: "gpt-4o-mini",
+    streaming: false,
   }).bindTools([confirmTool] as any, {
     strict: true,
+   
     tool_choice: confirmTool.name,
   });
 
-  const model = new ChatOpenAI({
-    model: "gpt-4o",
-    temperature: 2,
-  })
   
   // Although the question is not about the weather, it will call the tool with the correct arguments
   // because we passed `tool_choice` and `strict: true`.
 
+  function parseAnyObjectToCleanString(jsonString: string): string {
+    try {
+      const data = JSON.parse(jsonString);
+      
+      function processValue(obj: any, prefix: string = ''): string {
+        let result = '';
+        
+        for (const [key, value] of Object.entries(obj)) {
+          const currentKey = prefix ? `${prefix}.${key}` : key;
+          
+          if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+            // Si es un objeto, procesarlo recursivamente
+            result += processValue(value, currentKey);
+          } else {
+            // Si es un valor primitivo, agregarlo al resultado
+            result += `${currentKey}: ${value}\n`;
+          }
+        }
+        
+        return result;
+      }
+      
+      return processValue(data).trim();
+      
+    } catch (error) {
+      throw new Error(`Error parsing JSON: ${error}`);
+    }
+  }
+
 
 const filterContext = async (context: string): Promise<string> => {
+  const model = new ChatOpenAI({
+    model: "gpt-4o-mini",
+    streaming: false,
+    temperature: 2,
+  })
+  
   try {
     const response = await model.invoke([
       new SystemMessage(`Tu unica tarea es transformar el contexto que te va a llegar del usuario.
@@ -95,7 +128,7 @@ const filterContext = async (context: string): Promise<string> => {
 export const agent = async ({message_to_confirmation, message_user , step , iaContext}: {message_to_confirmation: string, message_user: string, step?: string, iaContext?: string}) => {
 const processStep = step === "validate_customer" ? "Estas en un proceso confirmación" : step === "request_documentation" ? "Estas en el paso de solicitud de documentación" : "";
 try {
-  const contextFilter = await filterContext(iaContext.toString());
+  const contextFilter = parseAnyObjectToCleanString(iaContext as string);
 
  const context = contextFilter ? contextFilter : "No hay contexto adicional";
 
@@ -105,7 +138,8 @@ try {
   Eres encargado del área de confirmaciones de solicitudes. en este caso el usuario debe confirmar, rechazar o hacer alguna pregunta al respecto.
   ${processStep}
 
-  contexto adicional: ${context}
+  contexto adicional: 
+  ${context}
 
   El usuario va a recibir el siguiente mensaje del asistente:
 
@@ -139,8 +173,8 @@ try {
 
 
 
-//   console.log("llamando al agente")
-// agent({message_to_confirmation: "👋 Hola, te saludamos de Perdm, representante autorizado de izzi. Queremos confirmar contigo que contrataste el paquete *INTERNET 1000 MEGAS / SKEELO / VIX PREMIUM / MAX BA / APPLE TV+ *. ¿Podrías confirmarnos que este es el paquete correcto? ✅", message_user: "Quien lo contrato? y cuando?" , iaContext: ''});
+  console.log("llamando al agente")
+agent({message_to_confirmation: "👋 Hola, te saludamos de Perdm, representante autorizado de izzi. Queremos confirmar contigo que contrataste el paquete *INTERNET 1000 MEGAS / SKEELO / VIX PREMIUM / MAX BA / APPLE TV+ *. ¿Podrías confirmarnos que este es el paquete correcto? ✅", message_user: "Quien lo contrato? y cuando?" , iaContext: ' {"fechaSolicitud":"2025-09-12","cliente":{"nombre":"simo","apellido":"lopecio","apellido2":"salinacio","email":"simonlopezs@gmail.com"},"instrucciones_documentos":"El ine es tu documento de identificación oficial. Puedes sacarle una foto, o enviar un pdf o una imagen escaneada. El comprobante de domicilio puede ser una foto o pdf de cualquier boleta de servicios donde figure tu dirección."}'});
 
   // await structuredLlm.invoke([{
   //   role: "user",
