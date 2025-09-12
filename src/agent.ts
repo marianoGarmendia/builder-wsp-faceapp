@@ -1,7 +1,7 @@
 import { ChatOpenAI } from "@langchain/openai";
 import { z } from "zod";
 import { tool } from "@langchain/core/tools";
-import { SystemMessage , HumanMessage } from "@langchain/core/messages";
+import { SystemMessage , HumanMessage, AIMessage } from "@langchain/core/messages";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import "dotenv/config";
@@ -59,8 +59,8 @@ import "dotenv/config";
   });
 
   const model = new ChatOpenAI({
-    model: "gpt-4o-mini",
-    temperature: 0,
+    model: "gpt-4o",
+    temperature: 2,
   })
   
   // Although the question is not about the weather, it will call the tool with the correct arguments
@@ -72,7 +72,8 @@ const filterContext = async (context: string): Promise<string> => {
     const response = await model.invoke([
       new SystemMessage(`Tu unica tarea es transformar el contexto que te va a llegar del usuario.
 
-        Este es solo un ejemplo de como puede llegarte el contexto, ten en cuenta que puede haber mas campos o menos campos, pero siempre sera un objeto en string con varias propiedades.
+        Este es solo un ejemplo de como puede llegarte el contexto, ten en cuenta que puede haber mas campos o menos campos, pero siempre sera un objeto en string con varias propiedades:
+
          {"fechaSolicitud":"2025-09-12","cliente":{"nombre":"simo","apellido":"lopecio","apellido2":"salinacio","email":"simonlopezs@gmail.com"},"instrucciones_documentos":"El ine es tu documento de identificación oficial. Puedes sacarle una foto, o enviar un pdf o una imagen escaneada. El comprobante de domicilio puede ser una foto o pdf de cualquier boleta de servicios donde figure tu dirección."}
   
          debes tranformarlo a un solo string en lenguaje natural, que tenga sentido, debes identificar datos que sean innecesarios o no relevantes para ser devuelto a un flujo el cual va a consumirlo y procesar el contexto para responder posibles preguntas del usuario.
@@ -102,23 +103,15 @@ const context = contextFilter ? contextFilter : "No hay contexto adicional";
 console.log("context: ---------->", context);
  
   const prompt = `
-  Eres encargado del área de confirmaciones de solicitudes. en este caso el usuario debe confimrar o rechazar lo siguiente:
-  ${message_to_confirmation}
+  Eres encargado del área de confirmaciones de solicitudes. en este caso el usuario debe confirmar, rechazar o hacer alguna pregunta al respecto.
+  ${processStep}
 
-  Tu tarea es evaluar la respuesta del usuario e identificar si está aceptando o rechazando el requerimiento que menciona este mensaje:
+  contexto adicional: ${context}
 
- ${processStep}
+  el usuario va a recibir un mensaje del Asistente, debes evaluar el mensaje y determinar si la respuesta del usuario es una confirmacion, rechazo o pregunta.
 
-  contexto adicional:
+  Si es una pregunta, debes responderla de manera clara y concisa, sin inventar informacion. y sin otra información que no se encuentre dentro de este contexto en general.
 
-  ${context}
-
-  Comportamiento general:
-  Cuando el usuario haga alguna pregunta al respecto, responde sólo si tienes informacion en el contexto adicional suficiente para responder y si no hay contexto adicional o no tienes informacion suficiente para responder, responde que no tienes informacion suficiente para responder en este momento sobre esa consulta, pero nos pondremos en contacto contigo a la brevedad para resolverla. si esta accion se vuelve a dar en la conversacion ve cambiando el texto de tu respuesta pero sin cambiar el significado, esto se repetirá hasta que se resuelva la consulta.
-
-  No inventes informacion y trata siempre de ser consistente con el contexto adicional y con el mensaje al usuario.
-  
-  No hables de temas que no esten relacionados con el contexto adicional o el mensaje al usuario.
   Tu respuesta debe ser estructurada segun la herramienta 'confirm_request'.
   `
 
@@ -129,6 +122,7 @@ console.log("context: ---------->", context);
 
   const strictTrueResult = await llmWithStrictTrue.invoke([
     new SystemMessage(prompt),
+    new AIMessage(message_to_confirmation),
     new HumanMessage(message_user),
   ]);
   console.dir(strictTrueResult.tool_calls, { depth: null });
