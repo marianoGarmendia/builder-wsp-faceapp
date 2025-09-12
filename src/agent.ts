@@ -173,8 +173,8 @@ try {
 
 
 
-  console.log("llamando al agente")
-agent({message_to_confirmation: "👋 Hola, te saludamos de Perdm, representante autorizado de izzi. Queremos confirmar contigo que contrataste el paquete *INTERNET 1000 MEGAS / SKEELO / VIX PREMIUM / MAX BA / APPLE TV+ *. ¿Podrías confirmarnos que este es el paquete correcto? ✅", message_user: "Quien lo contrato? y cuando?" , iaContext: ' {"fechaSolicitud":"2025-09-12","cliente":{"nombre":"simo","apellido":"lopecio","apellido2":"salinacio","email":"simonlopezs@gmail.com"},"instrucciones_documentos":"El ine es tu documento de identificación oficial. Puedes sacarle una foto, o enviar un pdf o una imagen escaneada. El comprobante de domicilio puede ser una foto o pdf de cualquier boleta de servicios donde figure tu dirección."}'});
+//   console.log("llamando al agente")
+// agent({message_to_confirmation: "👋 Hola, te saludamos de Perdm, representante autorizado de izzi. Queremos confirmar contigo que contrataste el paquete *INTERNET 1000 MEGAS / SKEELO / VIX PREMIUM / MAX BA / APPLE TV+ *. ¿Podrías confirmarnos que este es el paquete correcto? ✅", message_user: "Quien lo contrato? y cuando?" , iaContext: ' {"fechaSolicitud":"2025-09-12","cliente":{"nombre":"simo","apellido":"lopecio","apellido2":"salinacio","email":"simonlopezs@gmail.com"},"instrucciones_documentos":"El ine es tu documento de identificación oficial. Puedes sacarle una foto, o enviar un pdf o una imagen escaneada. El comprobante de domicilio puede ser una foto o pdf de cualquier boleta de servicios donde figure tu dirección."}'});
 
   // await structuredLlm.invoke([{
   //   role: "user",
