@@ -94,13 +94,12 @@ const filterContext = async (context: string): Promise<string> => {
 
 export const agent = async ({message_to_confirmation, message_user , step , iaContext}: {message_to_confirmation: string, message_user: string, step?: string, iaContext?: string}) => {
 const processStep = step === "validate_customer" ? "Estas en un proceso confirmación" : step === "request_documentation" ? "Estas en el paso de solicitud de documentación" : "";
+try {
+  const contextFilter = await filterContext(iaContext.toString());
 
+ const context = contextFilter ? contextFilter : "No hay contexto adicional";
 
-const contextFilter = await filterContext(iaContext.toString());
-
-const context = contextFilter ? contextFilter : "No hay contexto adicional";
-
-console.log("context: ---------->", context);
+ console.log("context: ---------->", context);
  
   const prompt = `
   Eres encargado del área de confirmaciones de solicitudes. en este caso el usuario debe confirmar, rechazar o hacer alguna pregunta al respecto.
@@ -131,12 +130,17 @@ console.log("context: ---------->", context);
   console.dir(strictTrueResult.tool_calls, { depth: null });
 
   return strictTrueResult.tool_calls;
+} catch (error) {
+  console.error("Error al procesar el agente", error);
+  return {args: "Dame un momento por favor..."};
+}
+
 }
 
 
 
-  console.log("llamando al agente")
-agent({message_to_confirmation: "👋 Hola, te saludamos de Perdm, representante autorizado de izzi. Queremos confirmar contigo que contrataste el paquete *INTERNET 1000 MEGAS / SKEELO / VIX PREMIUM / MAX BA / APPLE TV+ *. ¿Podrías confirmarnos que este es el paquete correcto? ✅", message_user: "Quien lo contrato? y cuando?" , iaContext: ''});
+//   console.log("llamando al agente")
+// agent({message_to_confirmation: "👋 Hola, te saludamos de Perdm, representante autorizado de izzi. Queremos confirmar contigo que contrataste el paquete *INTERNET 1000 MEGAS / SKEELO / VIX PREMIUM / MAX BA / APPLE TV+ *. ¿Podrías confirmarnos que este es el paquete correcto? ✅", message_user: "Quien lo contrato? y cuando?" , iaContext: ''});
 
   // await structuredLlm.invoke([{
   //   role: "user",

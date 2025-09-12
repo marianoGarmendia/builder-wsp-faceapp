@@ -25,7 +25,7 @@ dotenv.config();
 
 // TODO: Gestionar la cantidad de mensajes en cada respuesta, maximo 3 mensajes por respuesta
 // TODO: Cuando ya se haya enviado el ultimo mensaje, confirmando o no , no se debe enviar ningun mensaje mas
-// TODO: 
+// TODO:  Gestionar un doble mensaje de respuesta del usuario
 
 const token = process.env.TOKEN;
 
